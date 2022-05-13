@@ -1,0 +1,9 @@
+build
+dist
+coverage
+node_modules
+npm-debug.log
+.DS_Store
+yarn.lock
+.eslint-release-info.json
+.idea
