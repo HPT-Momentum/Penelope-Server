@@ -15,9 +15,17 @@ server.use(cors());
 server.use(bodyparser.json());
 server.use(bodyparser.urlencoded({ extended: true }));
 server.set('port', process.env.PORT || 5000);
+server.set('trust proxy', true)
 
+async function helloWorldAPI(req: Request, res: Response) {
+  res.status(200).send("Hello World API!");
+}
 async function getRoom(req: Request, res: Response) {
   res.status(200).send(room);
+}
+async function deleteRoom(req: Request, res: Response) {
+  room = []
+  res.status(200).send("Successfully deleted room!");
 }
 
 async function postRoom(req: Request, res: Response) {
@@ -29,9 +37,15 @@ async function postRoom(req: Request, res: Response) {
   }
 }
 
+server.get('/', (req: Request, res: Response) => {
+  res.status(200).send('Hello World!')
+})
+
 const router = express.Router();
 router.get('/room', getRoom);
 router.post('/room', postRoom);
+router.delete('/room', deleteRoom);
+router.get('/', helloWorldAPI);
 server.use('/api', router);
 
 server.listen(server.get('port'), () => {
