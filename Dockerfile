@@ -5,7 +5,7 @@ ADD yarn.lock /app/yarn.lock
 
 WORKDIR /app
 
-RUN yarn
+RUN yarn --frozen-lockfile
 
 FROM packages
 
