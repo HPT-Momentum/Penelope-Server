@@ -15,22 +15,22 @@ server.use(cors());
 server.use(bodyparser.json());
 server.use(bodyparser.urlencoded({ extended: true }));
 server.set('port', process.env.PORT || 5000);
-server.set('trust proxy', true)
+server.set('trust proxy', true);
 
 async function helloWorldAPI(req: Request, res: Response) {
-  res.status(200).send("Hello World API!");
+  res.status(200).send('Hello World API!');
 }
 async function getRoom(req: Request, res: Response) {
   res.status(200).send(room);
 }
 async function deleteRoom(req: Request, res: Response) {
-  room = []
-  res.status(200).send("Successfully deleted room!");
+  room = [];
+  res.status(200).send('Successfully deleted room!');
 }
 
 async function postRoom(req: Request, res: Response) {
   if (room.length < 1) {
-    room = [{ joinCode: req.body.get('joinCode') }];
+    room = [{ joinCode: req.query.joinCode as string }];
     res.status(201).send('Great success!');
   } else {
     res.status(409).send('A room already exists!');
@@ -38,8 +38,8 @@ async function postRoom(req: Request, res: Response) {
 }
 
 server.get('/', (req: Request, res: Response) => {
-  res.status(200).send('Hello World!')
-})
+  res.status(200).send('Hello World!');
+});
 
 const router = express.Router();
 router.get('/room', getRoom);
