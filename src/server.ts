@@ -9,7 +9,7 @@ interface Room {
 
 const server = express();
 
-let room: Room[] = [];
+let room: string = null;
 
 server.use(cors());
 server.use(bodyparser.json());
@@ -24,13 +24,13 @@ async function getRoom(req: Request, res: Response) {
   res.status(200).send(room);
 }
 async function deleteRoom(req: Request, res: Response) {
-  room = [];
+  room = null;
   res.status(200).send('Successfully deleted room!');
 }
 
 async function postRoom(req: Request, res: Response) {
-  if (room.length < 1) {
-    room = [{ joinCode: req.query.joinCode as string }];
+  if (room != null) {
+    room = req.query.joinCode as string;
     res.status(201).send('Great success!');
   } else {
     res.status(409).send('A room already exists!');
