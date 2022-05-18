@@ -4,7 +4,7 @@ import cors from 'cors';
 import { Request, Response } from 'express';
 
 interface Room {
-  ipv4: string;
+  joinCode: string;
 }
 
 const server = express();
@@ -22,7 +22,7 @@ async function getRoom(req: Request, res: Response) {
 
 async function postRoom(req: Request, res: Response) {
   if (room.length < 1) {
-    room = [{ ipv4: req.ip }];
+    room = [{ joinCode: req.body.get('joinCode') }];
     res.status(201).send('Great success!');
   } else {
     res.status(409).send('A room already exists!');
